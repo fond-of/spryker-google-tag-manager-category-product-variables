@@ -1,0 +1,56 @@
+<?php
+
+namespace FondOfSpryker\Yves\GoogleTagManagerCategoryProductVariables\Plugin\Variables;
+
+use FondOfSpryker\Yves\GoogleTagManagerCore\Dependency\GoogleTagManagerExtensionPluginInterface;
+use Spryker\Yves\Kernel\AbstractPlugin;
+
+class ProductNamePlugin extends AbstractPlugin implements GoogleTagManagerExtensionPluginInterface
+{
+    public const PARAM_PRODUCTS = 'products';
+    public const PARAM_PRODUCT_ATTRIBUTES = 'attributes';
+    public const PARAM_PRODUCT_ATTRIBUTE_ABSTRACT_NAME = 'abstract_name';
+    public const PARAM_PRODUCT_ATTRIBUTE_NAME_UNTRANSLATED = 'name_untranslated';
+
+    public const FIELD_PRODUCT_NAME = 'name';
+
+    /**
+     * @param string $page
+     * @param array $params
+     *
+     * @return array
+     */
+    public function addVariable(string $page, array $params): array
+    {
+        if ($this->isParamsValid($params) === false) {
+            return [];
+        }
+
+        $attributes = $params[static::PARAM_PRODUCTS][static::PARAM_PRODUCT_ATTRIBUTES];
+
+        $name = isset($attributes[static::PARAM_PRODUCT_ATTRIBUTE_NAME_UNTRANSLATED])
+            ?: $attributes[static::PARAM_PRODUCT_ATTRIBUTE_ABSTRACT_NAME];
+
+        return [
+            static::FIELD_PRODUCT_NAME => $name
+        ];
+    }
+
+    /**
+     * @param array $params
+     *
+     * @return bool
+     */
+    protected function isParamsValid(array $params): bool
+    {
+        if (!isset($params[static::PARAM_PRODUCTS])) {
+            return false;
+        }
+
+        if (!isset($params[static::PARAM_PRODUCTS][static::PARAM_PRODUCT_ATTRIBUTES])) {
+            return false;
+        }
+
+        return true;
+    }
+}
