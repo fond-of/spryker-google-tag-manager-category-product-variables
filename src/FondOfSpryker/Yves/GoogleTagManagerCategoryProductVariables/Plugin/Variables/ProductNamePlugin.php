@@ -22,11 +22,11 @@ class ProductNamePlugin extends AbstractPlugin implements GoogleTagManagerExtens
      */
     public function addVariable(string $page, array $params): array
     {
-        if ($this->isParamsValid($params) === false) {
+        if (!isset($params[static::PARAM_PRODUCT_ATTRIBUTES])) {
             return [];
         }
 
-        $attributes = $params[static::PARAM_PRODUCTS][static::PARAM_PRODUCT_ATTRIBUTES];
+        $attributes = $params[static::PARAM_PRODUCT_ATTRIBUTES];
 
         $name = isset($attributes[static::PARAM_PRODUCT_ATTRIBUTE_NAME_UNTRANSLATED])
             ?: $attributes[static::PARAM_PRODUCT_ATTRIBUTE_ABSTRACT_NAME];
@@ -34,23 +34,5 @@ class ProductNamePlugin extends AbstractPlugin implements GoogleTagManagerExtens
         return [
             static::FIELD_PRODUCT_NAME => $name
         ];
-    }
-
-    /**
-     * @param array $params
-     *
-     * @return bool
-     */
-    protected function isParamsValid(array $params): bool
-    {
-        if (!isset($params[static::PARAM_PRODUCTS])) {
-            return false;
-        }
-
-        if (!isset($params[static::PARAM_PRODUCTS][static::PARAM_PRODUCT_ATTRIBUTES])) {
-            return false;
-        }
-
-        return true;
     }
 }

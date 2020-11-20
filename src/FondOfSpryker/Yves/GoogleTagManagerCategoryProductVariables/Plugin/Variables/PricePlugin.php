@@ -23,32 +23,14 @@ class PricePlugin extends AbstractPlugin implements GoogleTagManagerExtensionPlu
      */
     public function addVariable(string $page, array $params): array
     {
-        if ($this->isParamsValid($params) === false) {
+        if (!isset($params[static::PARAM_PRODUCT_PRICE])) {
             return [];
         }
 
-        $priceInt = $params[static::PARAM_PRODUCTS][static::PARAM_PRODUCT_PRICE];
+        $priceInt = $params[static::PARAM_PRODUCT_PRICE];
 
         return [
             static::FIELD_PRICE => $this->getFactory()->getMoneyPlugin()->convertIntegerToDecimal($priceInt)
         ];
-    }
-
-    /**
-     * @param array $params
-     *
-     * @return bool
-     */
-    protected function isParamsValid(array $params): bool
-    {
-        if (!isset($params[static::PARAM_PRODUCTS])) {
-            return false;
-        }
-
-        if (!isset($params[static::PARAM_PRODUCTS][static::PARAM_PRODUCT_PRICE])) {
-            return false;
-        }
-
-        return true;
     }
 }

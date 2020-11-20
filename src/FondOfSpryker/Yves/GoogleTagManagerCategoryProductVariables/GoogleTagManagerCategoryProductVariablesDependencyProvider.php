@@ -8,7 +8,7 @@ use Spryker\Yves\Kernel\AbstractBundleDependencyProvider;
 use Spryker\Yves\Kernel\Container;
 use Spryker\Zed\Money\Communication\Plugin\MoneyPlugin;
 
-class GoogleTagManagerCategoryProductVariablesDepedencyProvider extends AbstractBundleDependencyProvider
+class GoogleTagManagerCategoryProductVariablesDependencyProvider extends AbstractBundleDependencyProvider
 {
     public const PLUGIN_MONEY = 'PLUGIN_MONEY';
 

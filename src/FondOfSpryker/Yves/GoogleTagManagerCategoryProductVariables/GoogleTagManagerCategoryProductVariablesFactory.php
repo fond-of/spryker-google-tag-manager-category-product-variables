@@ -13,6 +13,6 @@ class GoogleTagManagerCategoryProductVariablesFactory extends AbstractFactory
      */
     public function getMoneyPlugin(): MoneyPluginInterface
     {
-        return $this->getProvidedDependency(GoogleTagManagerCategoryProductVariablesDepedencyProvider::PLUGIN_MONEY);
+        return $this->getProvidedDependency(GoogleTagManagerCategoryProductVariablesDependencyProvider::PLUGIN_MONEY);
     }
 }

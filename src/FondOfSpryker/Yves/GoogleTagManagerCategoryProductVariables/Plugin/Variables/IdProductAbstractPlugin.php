@@ -20,30 +20,12 @@ class IdProductAbstractPlugin extends AbstractPlugin implements GoogleTagManager
      */
     public function addVariable(string $page, array $params): array
     {
-        if ($this->isParamsValid($params) === true) {
+        if (!isset($params[static::PARAM_PRODUCT_ID_ABSTRACT])) {
             return [];
         }
 
         return [
-            static::FIELD_PRODUCT_ID_ABSTRACT => $params[static::PARAM_PRODUCTS][static::PARAM_PRODUCT_ID_ABSTRACT]
+            static::FIELD_PRODUCT_ID_ABSTRACT => $params[static::PARAM_PRODUCT_ID_ABSTRACT]
         ];
-    }
-
-    /**
-     * @param array $params
-     *
-     * @return bool
-     */
-    protected function isParamsValid(array $params): bool
-    {
-        if (!isset($params[static::PARAM_PRODUCTS])) {
-            return false;
-        }
-
-        if (!isset($params[static::PARAM_PRODUCTS][static::PARAM_PRODUCT_ID_ABSTRACT])) {
-            return false;
-        }
-
-        return true;
     }
 }
